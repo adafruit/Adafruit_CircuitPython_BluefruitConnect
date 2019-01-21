@@ -31,12 +31,12 @@ Bluefruit Connect App Quaternion data packet.
 
 import struct
 
-from .xyz_packet import XYZPacket
+from ._xyz_packet import _XYZPacket
 
-class QuaternionPacket(XYZPacket):
+class QuaternionPacket(_XYZPacket):
     """A packet of x, y, z float values. Used for several different Bluefruit controller packets."""
 
-    # Use XYZPacket to handle x, y, z, and add w.
+    # Use _XYZPacket to handle x, y, z, and add w.
 
     _FMT_CONSTRUCT = '<ssffffx'
     _FMT_PARSE = '<xxffffx'

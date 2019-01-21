@@ -29,12 +29,12 @@ Bluefruit Connect App Gyro data packet.
 
 """
 
-from .xyz_packet import XYZPacket
+from ._xyz_packet import _XYZPacket
 
-class GyroPacket(XYZPacket):
+class GyroPacket(_XYZPacket):
     """A packet of x, y, z float values from a gyroscope."""
 
-    # Everything else is handled by XYZPacket.
+    # Everything else is handled by _XYZPacket.
     TYPE_CHAR = 'G'
 
 

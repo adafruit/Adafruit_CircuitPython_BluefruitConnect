@@ -29,12 +29,12 @@ Bluefruit Connect App Magnetometer data packet.
 
 """
 
-from .xyz_packet import XYZPacket
+from ._xyz_packet import _XYZPacket
 
-class AccelerometerPacket(XYZPacket):
+class AccelerometerPacket(_XYZPacket):
     """A packet of x, y, z float values from a magnetometer."""
 
-    # Everything else is handled by XYZPacket.
+    # Everything else is handled by _XYZPacket.
     _TYPE_CHAR = 'M'
 
 
