@@ -36,7 +36,7 @@ class Packet:
     A Bluefruit app controller packet. A packet consists of these bytes, in order:
 
       - '!' - The first byte is always an exclamation point.
-      - *type* - A single byte designating the type of packet: 'A', 'B', etc.
+      - *type* - A single byte designating the type of packet: b'A', b'B', etc.
       - *data ...* - Multiple bytes of data, varying by packet type.
       - *checksum* - A single byte checksum, computed by adding up all the data bytes and
           inverting the sum.
@@ -46,31 +46,37 @@ class Packet:
 
     # All concrete subclasses should define these class attributes. They're listed here
     # as a reminder and to make pylint happy.
-    _FMT_CONSTRUCT = None
+    # _FMT_PARSE is the whole packet.
     _FMT_PARSE = None
+    # In each class, set PACKET_LENGTH = struct.calcsize(_FMT_PARSE).
     PACKET_LENGTH = None
-    _TYPE_CHAR = None
-
+    # _FMT_CONSTRUCT does not include the trailing byte, which is the checksum.
+    _FMT_CONSTRUCT = None
+    # The first byte of the prefix is always b'!'. The second byte is the type code.
+    _TYPE_HEADER = None
 
     _type_to_class = dict()
 
     @classmethod
     def register_packet_type(cls):
-        """Register a new packet type, using this class and its `cls._TYPE_CHAR`
-        The ``parse()`` method will then be able to recognize this type of packet.
+        """Register a new packet type, using this class and its `cls._TYPE_HEADER`
+        The ``from_bytes()`` and ``from_stream()`` methods will then be able
+        to recognize this type of packet.
         """
 
-        Packet._type_to_class[cls._TYPE_CHAR] = cls
+        Packet._type_to_class[cls._TYPE_HEADER] = cls
 
     @classmethod
     def from_bytes(cls, packet):
         """Create an appropriate object of the correct class for the given packet bytes.
         Validate packet type, length, and checksum.
         """
-
-        packet_class = cls._type_to_class.get(packet[1], None)
+        if len(packet) < 3:
+            raise ValueError("Packet too short")
+        header = packet[0:2]
+        packet_class = cls._type_to_class.get(header, None)
         if not packet_class:
-            raise ValueError("Unknown packet type '{}'".format(packet[1]))
+            raise ValueError("Unknown packet header '{}'".format(header))
 
         # In case this was called from a subclass, make sure the parsed
         # type matches up with the current class.
@@ -80,11 +86,33 @@ class Packet:
         if len(packet) != packet_class.PACKET_LENGTH:
             raise ValueError("Wrong length packet")
 
-        if cls.checksum(packet) != packet[-1]:
+        if cls.checksum(packet[0:-1]) != packet[-1]:
             raise ValueError("Bad checksum")
 
         # A packet class may do further validation of the data.
         return packet_class.parse_private(packet)
+
+    @classmethod
+    def from_stream(cls, stream):
+        """Read the next packet from the incoming stream. Wait as long as the timeout
+        set on stream, using its own preset timeout.
+        Return None if there was no input, otherwise return an instance
+        of one of the packet classes registered with `Packet`.
+        Raise an Error if the packet was not recognized or was malformed
+
+        :param stream stream: an input stream that provides standard stream read operations,
+          such as `ble.UARTService` or `busio.UART`.
+        """
+        header = stream.read(2)
+        if len(header) != 2 or header[0] != ord(b'!'):
+            # Remove any other junk already read.
+            stream.reset_input_buffer()
+            return None
+        packet_class = cls._type_to_class.get(header, None)
+        if not packet_class:
+            raise ValueError("Unknown packet header {}".format(header))
+        packet = header + stream.read(packet_class.PACKET_LENGTH - 2)
+        return cls.from_bytes(packet)
 
     @classmethod
     def parse_private(cls, packet):
@@ -95,13 +123,15 @@ class Packet:
 
         Do not call this directly. It's called from ``cls.from_bytes()``.
         """
-        cls.__init__(*struct.unpack(cls._FMT_PARSE, packet))
+        return cls(*struct.unpack(cls._FMT_PARSE, packet))
 
     @staticmethod
-    def checksum(packet):
-        """Compute checksum for packet."""
-        return ~sum(packet[2:-1]) & 0xff
+    def checksum(partial_packet):
+        """Compute checksum for bytes, not including the checksum byte itself."""
+        return ~sum(partial_packet) & 0xff
 
-    def set_checksum(self, packet):
-        """Set checksum byte with proper checksum value."""
-        packet[-1] = self.checksum(packet)
+    def add_checksum(self, partial_packet):
+        """Compute the checksum of partial_packet and return a new bytes
+        with the checksum appended.
+        """
+        return partial_packet + bytes((self.checksum(partial_packet),))

@@ -69,7 +69,7 @@ Then run the build:
 
 .. code-block:: shell
 
-    circuitpython-build-bundles --filename_prefix adafruit-circuitpython-bluefruit-connect --library_location .
+    circuitpython-build-bundles --filename_prefix adafruit-circuitpython-bluefruitconnect --library_location .
 
 Sphinx documentation
 -----------------------

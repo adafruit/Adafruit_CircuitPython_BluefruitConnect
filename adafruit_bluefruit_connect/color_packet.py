@@ -36,10 +36,11 @@ from .packet import Packet
 class ColorPacket(Packet):
     """A packet containing an RGB color value."""
 
-    _FMT_CONSTRUCT = '<ss3Bx'
     _FMT_PARSE = '<xx3Bx'
-    PACKET_LENGTH = struct.calcsize(_FMT_CONSTRUCT)
-    _TYPE_CHAR = 'C'
+    PACKET_LENGTH = struct.calcsize(_FMT_PARSE)
+    # _FMT_CONSTRUCT doesn't include the trailing checksum byte.
+    _FMT_CONSTRUCT = '<2s3B'
+    _TYPE_HEADER = b'!C'
 
     def __init__(self, color):
         """Construct a ColorPacket from a 3-tuple of RGB values,
@@ -58,14 +59,13 @@ class ColorPacket(Packet):
     @classmethod
     def parse_private(cls, packet):
         """Construct a ColorPacket from an incoming packet."""
-        cls.__init__(struct.unpack(cls._FMT_PARSE, packet))
+        return cls(struct.unpack(cls._FMT_PARSE, packet))
 
     def to_bytes(self):
         """Return the bytes needed to send this packet.
         """
-        packet = struct.pack(self._FMT_CONSTRUCT, b'!', self._TYPE_CHAR, *self._color)
-        self.set_checksum(packet)
-        return packet
+        partial_packet = struct.pack(self._FMT_CONSTRUCT, self._TYPE_HEADER, *self._color)
+        return self.add_checksum(partial_packet)
 
     @property
     def color(self):

@@ -38,9 +38,10 @@ class ButtonPacket(Packet):
     """A packet containing a button name and its state"""
 
     _FMT_PARSE = '<xxssx'
-    _FMT_CONSTRUCT = '<ssssx'
     PACKET_LENGTH = struct.calcsize(_FMT_PARSE)
-    _TYPE_CHAR = 'B'
+    # _FMT_CONSTRUCT doesn't include the trailing checksum byte.
+    _FMT_CONSTRUCT = '<2sss'
+    _TYPE_HEADER = b'!B'
 
     def __init__(self, button, pressed):
         """Construct a ButtonPacket from a button name and the button's state.
@@ -65,18 +66,17 @@ class ButtonPacket(Packet):
         button, pressed = struct.unpack(cls._FMT_PARSE, packet)
         if not pressed in b'01':
             raise ValueError("Bad button press/release value")
-        return cls.__init__(button, pressed == '1')
+        return cls(chr(button[0]), pressed == b'1')
 
     def to_bytes(self):
         """Return the bytes needed to send this packet."""
-        packet = struct.pack(self._FMT_CONSTRUCT, '!', self._TYPE_CHAR, self._button,
-                             b'1' if self._pressed else b'0')
-        self.set_checksum(packet)
-        return packet
+        partial_packet = struct.pack(self._FMT_CONSTRUCT, self._TYPE_HEADER,
+                                     self._button, b'1' if self._pressed else b'0')
+        return self.add_checksum(partial_packet)
 
     @property
     def button(self):
-        """Button designator (a single character)."""
+        """Button designator: a single character string (not bytes)."""
         return self._button
 
     @property

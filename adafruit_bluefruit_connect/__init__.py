@@ -1,6 +1,6 @@
 # The MIT License (MIT)
 #
-# Copyright (c) 2018 Dan Halbert for Adafruit Industries
+# Copyright (c) 2019 Dan Halbert for Adafruit Industries
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 """
-`adafruit_ble`
+`adafruit_bluefruit_connect`
 ====================================================
 
 This module helps you to communicate with the Adafruit Bluefruit Connect app or use its protocols.
@@ -36,6 +36,8 @@ Implementation Notes
 
 **Software and Dependencies:**
 
+* Adafruit Bluefruit LE Connect App
+  https://learn.adafruit.com/bluefruit-le-connect-for-ios (also available for Android)
 * Adafruit CircuitPython firmware for the supported boards:
   https://github.com/adafruit/circuitpython/releases
 
@@ -44,4 +46,4 @@ Implementation Notes
 # imports
 
 __version__ = "0.0.0-auto.0"
-__repo__ = "https://github.com/adafruit/Adafruit_CircuitPython_BLE.git"
+__repo__ = "https://github.com/adafruit/Adafruit_CircuitPython_BluefruitConnect.git"

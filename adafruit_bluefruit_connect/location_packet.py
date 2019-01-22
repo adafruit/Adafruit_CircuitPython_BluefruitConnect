@@ -36,10 +36,12 @@ from .packet import Packet
 class LocationPacket(Packet):
     """A packet of latitude, longitude, and altitude values."""
 
-    _FMT_CONSTRUCT = '<ssfffx'
     _FMT_PARSE = '<xxfffx'
+    PACKET_LENGTH = struct.calcsize(_FMT_PARSE)
+    # _FMT_CONSTRUCT doesn't include the trailing checksum byte.
+    _FMT_CONSTRUCT = '<2sfff'
     PACKET_LENGTH = struct.calcsize(_FMT_CONSTRUCT)
-    _TYPE_CHAR = 'L'
+    _TYPE_HEADER = b'!L'
 
     def __init__(self, latitude, longitude, altitude):
         """Construct a LocationPacket from the given values."""
@@ -50,10 +52,9 @@ class LocationPacket(Packet):
     def to_bytes(self):
         """Return the bytes needed to send this packet.
         """
-        packet = struct.pack(self._FMT_CONSTRUCT, b'!', self._TYPE_CHAR,
-                             self._latitude, self._longitude, self._altitude)
-        self.set_checksum(packet)
-        return packet
+        partial_packet = struct.pack(self._FMT_CONSTRUCT, self._TYPE_HEADER,
+                                     self._latitude, self._longitude, self._altitude)
+        return self.add_checksum(partial_packet)
 
     @property
     def latitude(self):
