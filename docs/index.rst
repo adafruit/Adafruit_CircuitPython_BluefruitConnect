@@ -26,8 +26,6 @@ Table of Contents
 .. toctree::
     :caption: Related Products
 
-   inline format: "* `Adafruit Feather nRF52840 Express <https://www.adafruit.com/product/4062>`_"
-
 .. toctree::
     :caption: Other Links
 
