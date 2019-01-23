@@ -2,7 +2,7 @@
 # and a 24-NeoPixel ring.
 
 from adafruit_crickit import crickit
-from adafruit_ble.uart import UARTService
+from adafruit_ble.uart import UARTServer
 
 from adafruit_bluefruit_connect.packet import Packet
 # Only the packet classes that are imported will be known to Packet.
@@ -11,7 +11,7 @@ from adafruit_bluefruit_connect.button_packet import ButtonPacket
 
 crickit.init_neopixel(24)
 
-uart_service = UARTService()
+uart_server = UARTServer()
 
 advertising_now = False
 tilt = 0
@@ -21,16 +21,16 @@ crickit.servo_2.angle = tilt
 
 while True:
 
-    if not uart_service.connected:
+    if not uart_server.connected:
         if not advertising_now:
-            uart_service.start_advertising()
+            uart_server.start_advertising()
             advertising_now = True
         continue
 
     # Connected, so no longer advertising
     advertising_now = False
 
-    packet = Packet.from_stream(uart_service)
+    packet = Packet.from_stream(uart_server)
     if isinstance(packet, ColorPacket):
         crickit.neopixel.fill(packet.color)
     elif isinstance(packet, ButtonPacket):
