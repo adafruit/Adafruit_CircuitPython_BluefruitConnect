@@ -5,21 +5,20 @@ python:
 cache:
   pip: true
 deploy:
-  matrix:
-  - provider: releases
-    api_key: "$GITHUB_TOKEN"
-    file_glob: true
-    file: "$TRAVIS_BUILD_DIR/bundles/*"
-    skip_cleanup: true
-    overwrite: true
-    on:
-      tags: true
-  - provider: pypi
-    user: adafruit-travis
-    on:
-      tags: true
-    password:
-      secure: VHQv1QGh2dcLXf/4e3EK8Cp62DGDnusC+X/pCtduba4vaNkNiMGbQXazkhsooRpCLFH3WAjzsMTj0/zXLfH28bT0iKe68XJR2uk0SnREPwXaj/CcE7ovTNXvdGSA8ytVguD54lsO/aiTpF1Wat1mMFUqM6vhVbNBvaA8zyaAfPV04/9l7V5w8d7F14HMxTZVt7OpnJ8CwsLVSXX2Py9ZREtPpBGGbEV/Of4aW73y4aUZnFpPwxEB64Lu0/Gbb9Ofl6g+Md8WqDNB+TUj8etCy3DmpkOadp5PTjyBMqPOIwEeAwy5xL69czPSbvLUrWHWVcOD/H5gFqmbr1iP/OvaM2pW5YsgbFkdNXEhuesVjpFnDEyrIt16dW+sWJj2SnvN3HPWkjDYhYCAPSGL8t3h99RYHYSaEwAE8rMQaIAoGUtl3rMDpMl26/RsKpz7Y2qwxGHpBGg+Mw5sbIwrhC069fhlARUhsLupF0/klrw+VutA7+gM/R8lkaqxrlRLfOBT+9KB1J0VMQElfKQZgErNTddnudtza9i35VbcMbvVcREPrC9hyhL3qTbLJS7BFfKW0AVRGVPy6KI3Zn2Q+9d4nngeAn1WDtNfG1Q4qCo8I+4AfowzpzphtotYErxWbRFG6gsPYy90XhOg99Ir2+Eb7asGNjyvFSdJCBZSDqFd8oM=
+- provider: releases
+  api_key: "$GITHUB_TOKEN"
+  file_glob: true
+  file: "$TRAVIS_BUILD_DIR/bundles/*"
+  skip_cleanup: true
+  overwrite: true
+  on:
+    tags: true
+- provider: pypi
+  user: adafruit-travis
+  on:
+    tags: true
+  password:
+    secure: VHQv1QGh2dcLXf/4e3EK8Cp62DGDnusC+X/pCtduba4vaNkNiMGbQXazkhsooRpCLFH3WAjzsMTj0/zXLfH28bT0iKe68XJR2uk0SnREPwXaj/CcE7ovTNXvdGSA8ytVguD54lsO/aiTpF1Wat1mMFUqM6vhVbNBvaA8zyaAfPV04/9l7V5w8d7F14HMxTZVt7OpnJ8CwsLVSXX2Py9ZREtPpBGGbEV/Of4aW73y4aUZnFpPwxEB64Lu0/Gbb9Ofl6g+Md8WqDNB+TUj8etCy3DmpkOadp5PTjyBMqPOIwEeAwy5xL69czPSbvLUrWHWVcOD/H5gFqmbr1iP/OvaM2pW5YsgbFkdNXEhuesVjpFnDEyrIt16dW+sWJj2SnvN3HPWkjDYhYCAPSGL8t3h99RYHYSaEwAE8rMQaIAoGUtl3rMDpMl26/RsKpz7Y2qwxGHpBGg+Mw5sbIwrhC069fhlARUhsLupF0/klrw+VutA7+gM/R8lkaqxrlRLfOBT+9KB1J0VMQElfKQZgErNTddnudtza9i35VbcMbvVcREPrC9hyhL3qTbLJS7BFfKW0AVRGVPy6KI3Zn2Q+9d4nngeAn1WDtNfG1Q4qCo8I+4AfowzpzphtotYErxWbRFG6gsPYy90XhOg99Ir2+Eb7asGNjyvFSdJCBZSDqFd8oM=
 
 install:
 - pip install -r requirements.txt
