@@ -59,7 +59,7 @@ class Packet:
 
     @classmethod
     def register_packet_type(cls):
-        """Register a new packet type, using this class and its `cls._TYPE_HEADER`
+        """Register a new packet type, using this class and its ``cls._TYPE_HEADER``.
         The ``from_bytes()`` and ``from_stream()`` methods will then be able
         to recognize this type of packet.
         """
@@ -97,11 +97,11 @@ class Packet:
         """Read the next packet from the incoming stream. Wait as long as the timeout
         set on stream, using its own preset timeout.
         Return None if there was no input, otherwise return an instance
-        of one of the packet classes registered with `Packet`.
+        of one of the packet classes registered with ``Packet``.
         Raise an Error if the packet was not recognized or was malformed
 
         :param stream stream: an input stream that provides standard stream read operations,
-          such as `ble.UARTServer` or `busio.UART`.
+          such as ``ble.UARTServer`` or ``busio.UART``.
         """
         header = stream.read(2)
         if len(header) != 2 or header[0] != ord(b'!'):
