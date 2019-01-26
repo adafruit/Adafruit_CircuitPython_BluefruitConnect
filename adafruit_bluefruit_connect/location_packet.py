@@ -20,7 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 """
-`adafruit_bluefruit_connect.controller_packet`
+`adafruit_bluefruit_connect.location_packet`
 ====================================================
 
 Bluefruit Connect App geographical location packet.

@@ -6,3 +6,27 @@
 
 .. automodule:: adafruit_bluefruit_connect
    :members:
+
+.. automodule:: adafruit_bluefruit_connect.packet
+   :members:
+
+.. automodule:: adafruit_bluefruit_connect.accelerometer_packet
+   :members:
+
+.. automodule:: adafruit_bluefruit_connect.button_packet
+   :members:
+
+.. automodule:: adafruit_bluefruit_connect.color_packet
+   :members:
+
+.. automodule:: adafruit_bluefruit_connect.gyro_packet
+   :members:
+
+.. automodule:: adafruit_bluefruit_connect.location_packet
+   :members:
+
+.. automodule:: adafruit_bluefruit_connect.magnetometer_packet
+   :members:
+
+.. automodule:: adafruit_bluefruit_connect.quaternion_packet
+   :members:

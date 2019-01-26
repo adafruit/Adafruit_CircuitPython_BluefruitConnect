@@ -21,7 +21,7 @@
 # THE SOFTWARE.
 """
 `adafruit_bluefruit_connect`
-====================================================
+============================
 
 This module helps you to communicate with the Adafruit Bluefruit Connect app or use its protocols.
 
@@ -32,7 +32,7 @@ Implementation Notes
 
 **Hardware:**
 
-   inline format: "* `Adafruit Feather nRF52840 Express <https://www.adafruit.com/product/4062>`_"
+   Adafruit Feather nRF52840 Express <https://www.adafruit.com/product/4062>
 
 **Software and Dependencies:**
 

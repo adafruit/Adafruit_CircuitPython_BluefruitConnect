@@ -20,7 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 """
-`adafruit_bluefruit_connect.controller_packet`
+`adafruit_bluefruit_connect.button_packet`
 ====================================================
 
 Bluefruit Connect App Button data packet (button_name, pressed/released)
