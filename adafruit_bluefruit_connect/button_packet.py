@@ -80,6 +80,7 @@ class ButtonPacket(Packet):
     def parse_private(cls, packet):
         """Construct a ButtonPacket from an incoming packet.
         Do not call this directly; call Packet.from_bytes() instead.
+        pylint makes it difficult to call this method _parse(), hence the name.
         """
         button, pressed = struct.unpack(cls._FMT_PARSE, packet)
         if not pressed in b'01':
