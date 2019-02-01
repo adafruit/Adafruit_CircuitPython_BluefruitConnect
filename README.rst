@@ -28,10 +28,19 @@ This is easily achieved by downloading
 Usage Example
 =============
 
+Normally this library is used with the
+`Adafruit_CircuitPython_BluefruitConnect
+<https://github.com/adafruit/Adafruit_CircuitPython_BluefruitConnnect>`_
+library
+(``adafruit_bluefruit_connect``). The included examples use that library.
+Below is a simple standalone example.
+
 .. code-block:: python
 
     from adafruit_bluefruit_connect.color_packet import ColorPacket
     from adafruit_bluefruit_connect.gyro_packet import GyroPacket
+
+    # [uart setup omitted]
 
     color_packet = ColorPacket((70,75,80))
     gyro_packet = GyroPacket.from_bytes(packet_buf)
