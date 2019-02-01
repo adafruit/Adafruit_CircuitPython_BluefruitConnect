@@ -37,14 +37,14 @@ from .packet import Packet
 class ButtonPacket(Packet):
     """A packet containing a button name and its state."""
 
-    B_1 = '1'
+    BUTTON_1 = '1'
     """Code for Button 1 on the Bluefruit LE Connect app Control Pad screen."""
-    B_2 = '2'
+    BUTTON_2 = '2'
     """Button 2."""
-    B_3 = '3'
+    BUTTON_3 = '3'
     """Button 3."""
-    B_4 = '4'
-    """Button 4"""
+    BUTTON_4 = '4'
+    """Button 4."""
     #pylint: disable= invalid-name
     UP = '5'
     """Up Button."""
@@ -80,6 +80,7 @@ class ButtonPacket(Packet):
     def parse_private(cls, packet):
         """Construct a ButtonPacket from an incoming packet.
         Do not call this directly; call Packet.from_bytes() instead.
+        pylint makes it difficult to call this method _parse(), hence the name.
         """
         button, pressed = struct.unpack(cls._FMT_PARSE, packet)
         if not pressed in b'01':

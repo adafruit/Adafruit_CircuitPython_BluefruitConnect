@@ -122,6 +122,7 @@ class Packet:
         is not correct.
 
         Do not call this directly. It's called from ``cls.from_bytes()``.
+        pylint makes it difficult to call this method _parse(), hence the name.
         """
         return cls(*struct.unpack(cls._FMT_PARSE, packet))
 
