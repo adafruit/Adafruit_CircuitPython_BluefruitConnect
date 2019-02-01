@@ -37,14 +37,14 @@ from .packet import Packet
 class ButtonPacket(Packet):
     """A packet containing a button name and its state."""
 
-    B_1 = '1'
+    BUTTON_1 = '1'
     """Code for Button 1 on the Bluefruit LE Connect app Control Pad screen."""
-    B_2 = '2'
+    BUTTON_2 = '2'
     """Button 2."""
-    B_3 = '3'
+    BUTTON_3 = '3'
     """Button 3."""
-    B_4 = '4'
-    """Button 4"""
+    BUTTON_4 = '4'
+    """Button 4."""
     #pylint: disable= invalid-name
     UP = '5'
     """Up Button."""
