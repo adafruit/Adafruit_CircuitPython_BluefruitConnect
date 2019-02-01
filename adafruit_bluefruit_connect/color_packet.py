@@ -58,7 +58,9 @@ class ColorPacket(Packet):
 
     @classmethod
     def parse_private(cls, packet):
-        """Construct a ColorPacket from an incoming packet."""
+        """Construct a ColorPacket from an incoming packet.
+        Do not call this directly; call Packet.from_bytes() instead.
+        """
         return cls(struct.unpack(cls._FMT_PARSE, packet))
 
     def to_bytes(self):
