@@ -60,6 +60,7 @@ class ColorPacket(Packet):
     def parse_private(cls, packet):
         """Construct a ColorPacket from an incoming packet.
         Do not call this directly; call Packet.from_bytes() instead.
+        pylint makes it difficult to call this method _parse(), hence the name.
         """
         return cls(struct.unpack(cls._FMT_PARSE, packet))
 
