@@ -1,4 +1,6 @@
-# Print out the color data from a ColorPacket.
+# Print out the color data from ColorPackets.
+# To use, start this program, and start the Adafruit Bluefruit LE Connect app.
+# Connect, and then select colors on the Controller->Color Picker screen.
 
 from adafruit_ble.uart import UARTServer
 from adafruit_bluefruit_connect.packet import Packet
@@ -7,18 +9,13 @@ from adafruit_bluefruit_connect.color_packet import ColorPacket
 
 uart_server = UARTServer()
 
-advertising_now = False
-
 while True:
-    if not uart_server.connected:
-        if not advertising_now:
-            uart_server.start_advertising()
-            advertising_now = True
-        continue
+    # Advertise when not connected.
+    uart_server.start_advertising()
+    while not uart_server.connected:
+        pass
 
-    # Connected, so no longer advertising
-    advertising_now = False
-
-    packet = Packet.from_stream(uart_server)
-    if isinstance(packet, ColorPacket):
-        print(packet.color)
+    while uart_server.connected:
+        packet = Packet.from_stream(uart_server)
+        if isinstance(packet, ColorPacket):
+            print(packet.color)

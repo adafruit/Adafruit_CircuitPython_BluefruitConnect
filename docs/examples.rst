@@ -9,6 +9,6 @@ Ensure your device works with this simple test.
 
 This test demonstrates controlling an Adafruit Crickit board with Bluetooth.
 
-.. literalinclude:: ../examples/bluefruit_connect_crickit_test.py
-    :caption: examples/bluefruit_connect_crickit_test.py
+.. literalinclude:: ../examples/bluefruit_connect_accelerometer_packet_test.py
+    :caption: examples/bluefruit_connect_accelerometer_packet_test.py
     :linenos:

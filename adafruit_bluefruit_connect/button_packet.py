@@ -35,7 +35,25 @@ import struct
 from .packet import Packet
 
 class ButtonPacket(Packet):
-    """A packet containing a button name and its state"""
+    """A packet containing a button name and its state."""
+
+    B_1 = '1'
+    """Code for Button 1 on the Bluefruit LE Connect app Control Pad screen."""
+    B_2 = '2'
+    """Button 2."""
+    B_3 = '3'
+    """Button 3."""
+    B_4 = '4'
+    """Button 4"""
+    #pylint: disable= invalid-name
+    UP = '5'
+    """Up Button."""
+    DOWN = '6'
+    """Down Button."""
+    LEFT = '7'
+    """Left Button."""
+    RIGHT = '8'
+    """Right Button."""
 
     _FMT_PARSE = '<xxssx'
     PACKET_LENGTH = struct.calcsize(_FMT_PARSE)
@@ -76,7 +94,7 @@ class ButtonPacket(Packet):
 
     @property
     def button(self):
-        """Button designator: a single character string (not bytes)."""
+        """A single character string (not bytes) specifying the button."""
         return self._button
 
     @property
