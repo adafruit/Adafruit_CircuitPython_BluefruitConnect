@@ -73,10 +73,9 @@ class Packet:
         """
         if len(packet) < 3:
             raise ValueError("Packet too short")
-        header = packet[0:2]
-        packet_class = cls._type_to_class.get(header, None)
+        packet_class = cls._type_to_class.get(packet[0:2], None)
         if not packet_class:
-            raise ValueError("Unknown packet header '{}'".format(header))
+            raise ValueError("Unregistered packet type {}".format(header))
 
         # In case this was called from a subclass, make sure the parsed
         # type matches up with the current class.
@@ -103,14 +102,28 @@ class Packet:
         :param stream stream: an input stream that provides standard stream read operations,
           such as ``ble.UARTServer`` or ``busio.UART``.
         """
-        header = stream.read(2)
-        if len(header) != 2 or header[0] != ord(b'!'):
-            # Remove any other junk already read.
-            stream.reset_input_buffer()
-            return None
+        # Loop looking for a b'!' packet start. If the buffer has overflowed,
+        # or there's been some other problem, we may need to skip some characters
+        # to get to a packet start.
+        while True:
+            start = stream.read(1)
+            if not start:
+                # Timeout: nothing read.
+                return None
+            if start == b'!':
+                # Found start of packet.
+                packet_type = stream.read(1)
+                if not packet_type:
+                    # Timeout: nothing more read.
+                    return None
+                else:
+                    break;
+            # Didn't find a packet start. Loop and try again.
+
+        header = start + packet_type
         packet_class = cls._type_to_class.get(header, None)
         if not packet_class:
-            raise ValueError("Unknown packet header {}".format(header))
+            raise ValueError("Unregistered packet type {}".format(header))
         packet = header + stream.read(packet_class.PACKET_LENGTH - 2)
         return cls.from_bytes(packet)
 
