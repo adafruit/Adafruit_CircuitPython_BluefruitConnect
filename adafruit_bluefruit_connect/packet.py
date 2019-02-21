@@ -75,7 +75,7 @@ class Packet:
             raise ValueError("Packet too short")
         packet_class = cls._type_to_class.get(packet[0:2], None)
         if not packet_class:
-            raise ValueError("Unregistered packet type {}".format(header))
+            raise ValueError("Unregistered packet type {}".format(packet[0:2]))
 
         # In case this was called from a subclass, make sure the parsed
         # type matches up with the current class.
@@ -117,7 +117,7 @@ class Packet:
                     # Timeout: nothing more read.
                     return None
                 else:
-                    break;
+                    break
             # Didn't find a packet start. Loop and try again.
 
         header = start + packet_type
