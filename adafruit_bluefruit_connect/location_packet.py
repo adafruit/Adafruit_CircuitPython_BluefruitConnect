@@ -40,7 +40,6 @@ class LocationPacket(Packet):
     PACKET_LENGTH = struct.calcsize(_FMT_PARSE)
     # _FMT_CONSTRUCT doesn't include the trailing checksum byte.
     _FMT_CONSTRUCT = '<2sfff'
-    PACKET_LENGTH = struct.calcsize(_FMT_CONSTRUCT)
     _TYPE_HEADER = b'!L'
 
     def __init__(self, latitude, longitude, altitude):
