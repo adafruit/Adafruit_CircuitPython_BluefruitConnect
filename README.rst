@@ -9,8 +9,8 @@ Introduction
     :target: https://discord.gg/nBQh6qu
     :alt: Discord
 
-.. image:: https://travis-ci.com/adafruit/Adafruit_CircuitPython_BluefruitConnect.svg?branch=master
-    :target: https://travis-ci.com/adafruit/Adafruit_CircuitPython_BluefruitConnect
+.. image:: https://github.com/adafruit/Adafruit_CircuitPython_BluefruitConnect/workflows/Build%20CI/badge.svg
+    :target: https://github.com/adafruit/Adafruit_CircuitPython_BluefruitConnect/actions/
     :alt: Build Status
 
 This module helps you to communicate with the Adafruit Bluefruit Connect app or use its protocols.
