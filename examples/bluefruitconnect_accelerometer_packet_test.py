@@ -4,20 +4,24 @@
 # STREAM SENSOR DATA -> Accelerometer to send data from the device's
 # accelerometer. See how it matches what this prints.
 
-from adafruit_ble.uart import UARTServer
+from adafruit_ble import BLERadio
+from adafruit_ble.advertising.standard import ProvideServicesAdvertisement
+from adafruit_ble.services.nordic import UARTService
 from adafruit_bluefruit_connect.packet import Packet
 # Only the packet classes that are imported will be known to Packet.
 from adafruit_bluefruit_connect.accelerometer_packet import AccelerometerPacket
 
-uart_server = UARTServer()
+ble = BLERadio()
+uart_server = UARTService()
+advertisement = ProvideServicesAdvertisement(uart_server)
 
 while True:
     # Advertise when not connected.
-    uart_server.start_advertising()
-    while not uart_server.connected:
+    ble.start_advertising(advertisement)
+    while not ble.connected:
         pass
 
-    while uart_server.connected:
+    while ble.connected:
         packet = Packet.from_stream(uart_server)
         if isinstance(packet, AccelerometerPacket):
             print(packet.x, packet.y, packet.z)
