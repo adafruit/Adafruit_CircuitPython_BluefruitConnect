@@ -5,7 +5,6 @@
 from adafruit_ble import BLERadio
 from adafruit_ble.advertising.standard import ProvideServicesAdvertisement
 from adafruit_ble.services.nordic import UARTService
-from adafruit_bluefruit_connect.packet import Packet
 
 ble = BLERadio()
 uart_server = UARTService()
