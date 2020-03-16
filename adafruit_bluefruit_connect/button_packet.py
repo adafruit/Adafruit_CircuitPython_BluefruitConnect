@@ -34,32 +34,33 @@ import struct
 
 from .packet import Packet
 
+
 class ButtonPacket(Packet):
     """A packet containing a button name and its state."""
 
-    BUTTON_1 = '1'
+    BUTTON_1 = "1"
     """Code for Button 1 on the Bluefruit LE Connect app Control Pad screen."""
-    BUTTON_2 = '2'
+    BUTTON_2 = "2"
     """Button 2."""
-    BUTTON_3 = '3'
+    BUTTON_3 = "3"
     """Button 3."""
-    BUTTON_4 = '4'
+    BUTTON_4 = "4"
     """Button 4."""
-    #pylint: disable= invalid-name
-    UP = '5'
+    # pylint: disable= invalid-name
+    UP = "5"
     """Up Button."""
-    DOWN = '6'
+    DOWN = "6"
     """Down Button."""
-    LEFT = '7'
+    LEFT = "7"
     """Left Button."""
-    RIGHT = '8'
+    RIGHT = "8"
     """Right Button."""
 
-    _FMT_PARSE = '<xxssx'
+    _FMT_PARSE = "<xxssx"
     PACKET_LENGTH = struct.calcsize(_FMT_PARSE)
     # _FMT_CONSTRUCT doesn't include the trailing checksum byte.
-    _FMT_CONSTRUCT = '<2sss'
-    _TYPE_HEADER = b'!B'
+    _FMT_CONSTRUCT = "<2sss"
+    _TYPE_HEADER = b"!B"
 
     def __init__(self, button, pressed):
         """Construct a ButtonPacket from a button name and the button's state.
@@ -83,14 +84,18 @@ class ButtonPacket(Packet):
         pylint makes it difficult to call this method _parse(), hence the name.
         """
         button, pressed = struct.unpack(cls._FMT_PARSE, packet)
-        if not pressed in b'01':
+        if not pressed in b"01":
             raise ValueError("Bad button press/release value")
-        return cls(chr(button[0]), pressed == b'1')
+        return cls(chr(button[0]), pressed == b"1")
 
     def to_bytes(self):
         """Return the bytes needed to send this packet."""
-        partial_packet = struct.pack(self._FMT_CONSTRUCT, self._TYPE_HEADER,
-                                     self._button, b'1' if self._pressed else b'0')
+        partial_packet = struct.pack(
+            self._FMT_CONSTRUCT,
+            self._TYPE_HEADER,
+            self._button,
+            b"1" if self._pressed else b"0",
+        )
         return self.add_checksum(partial_packet)
 
     @property

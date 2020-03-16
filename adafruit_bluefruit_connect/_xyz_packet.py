@@ -33,13 +33,14 @@ import struct
 
 from .packet import Packet
 
+
 class _XYZPacket(Packet):
     """A packet of x, y, z float values. Used for several different Bluefruit controller packets."""
 
-    _FMT_PARSE = '<xxfffx'
+    _FMT_PARSE = "<xxfffx"
     PACKET_LENGTH = struct.calcsize(_FMT_PARSE)
     # _FMT_CONSTRUCT doesn't include the trailing checksum byte.
-    _FMT_CONSTRUCT = '<2sfff'
+    _FMT_CONSTRUCT = "<2sfff"
     # _TYPE_HEADER is set by each concrete subclass.
 
     def __init__(self, x, y, z):
@@ -53,8 +54,9 @@ class _XYZPacket(Packet):
     def to_bytes(self):
         """Return the bytes needed to send this packet.
         """
-        partial_packet = struct.pack(self._FMT_CONSTRUCT, self._TYPE_HEADER,
-                                     self._x, self._y, self._z)
+        partial_packet = struct.pack(
+            self._FMT_CONSTRUCT, self._TYPE_HEADER, self._x, self._y, self._z
+        )
         return self.add_checksum(partial_packet)
 
     @property

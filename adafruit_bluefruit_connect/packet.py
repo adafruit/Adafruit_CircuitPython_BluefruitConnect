@@ -31,6 +31,7 @@ Bluefruit Connect App packet superclass
 
 import struct
 
+
 class Packet:
     """
     A Bluefruit app controller packet. A packet consists of these bytes, in order:
@@ -80,7 +81,7 @@ class Packet:
         # In case this was called from a subclass, make sure the parsed
         # type matches up with the current class.
         if not issubclass(packet_class, cls):
-            raise ValueError('Packet type is not a {}'.format(cls.__name__))
+            raise ValueError("Packet type is not a {}".format(cls.__name__))
 
         if len(packet) != packet_class.PACKET_LENGTH:
             raise ValueError("Wrong length packet")
@@ -110,14 +111,13 @@ class Packet:
             if not start:
                 # Timeout: nothing read.
                 return None
-            if start == b'!':
+            if start == b"!":
                 # Found start of packet.
                 packet_type = stream.read(1)
                 if not packet_type:
                     # Timeout: nothing more read.
                     return None
-                else:
-                    break
+                break
             # Didn't find a packet start. Loop and try again.
 
         header = start + packet_type
@@ -142,7 +142,7 @@ class Packet:
     @staticmethod
     def checksum(partial_packet):
         """Compute checksum for bytes, not including the checksum byte itself."""
-        return ~sum(partial_packet) & 0xff
+        return ~sum(partial_packet) & 0xFF
 
     def add_checksum(self, partial_packet):
         """Compute the checksum of partial_packet and return a new bytes
