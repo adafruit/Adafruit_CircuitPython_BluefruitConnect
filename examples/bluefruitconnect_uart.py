@@ -8,7 +8,7 @@ from adafruit_ble import BLERadio
 from adafruit_ble.advertising.standard import ProvideServicesAdvertisement
 from adafruit_ble.services.nordic import UARTService
 
-SEND_RATE = 10    # how often in seconds to send text
+SEND_RATE = 10  # how often in seconds to send text
 
 ble = BLERadio()
 uart_server = UARTService()
@@ -33,7 +33,7 @@ while True:
         if uart_server.in_waiting:
             raw_bytes = uart_server.read(uart_server.in_waiting)
             text = raw_bytes.decode().strip()
-            #print("raw bytes =", raw_bytes)
+            # print("raw bytes =", raw_bytes)
             print("RX:", text)
         # OUTGOING (TX) periodically send text
         if time.monotonic() - last_send > SEND_RATE:
