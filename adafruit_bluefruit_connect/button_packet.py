@@ -66,7 +66,8 @@ class ButtonPacket(Packet):
         """Construct a ButtonPacket from a button name and the button's state.
 
         :param str button: a single character denoting the button
-        :param bool pressed: ``True`` if button is pressed; ``False`` if it is release.
+        :param bool pressed: ``True`` if button is pressed; ``False`` if it is
+                             released.
         """
         # This check will catch wrong length and also non-sequence args (like an int).
         try:
