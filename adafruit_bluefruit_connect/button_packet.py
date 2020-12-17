@@ -105,7 +105,7 @@ class ButtonPacket(Packet):
 
     @property
     def pressed(self):
-        """True if button is pressed."""
+        """``True`` if button is pressed, or ``False`` if it is released."""
         return self._pressed
 
 
