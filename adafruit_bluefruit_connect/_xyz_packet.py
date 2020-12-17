@@ -44,9 +44,8 @@ class _XYZPacket(Packet):
     # _TYPE_HEADER is set by each concrete subclass.
 
     def __init__(self, x, y, z):
-        """Construct an _XYZPacket subclass object
-        from the given x, y, and z float values, and type character.
-        """
+        # Construct an _XYZPacket subclass object
+        # from the given x, y, and z float values, and type character.
         self._x = x
         self._y = y
         self._z = z
