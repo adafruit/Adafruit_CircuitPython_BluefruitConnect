@@ -39,8 +39,8 @@ class Packet:
       - '!' - The first byte is always an exclamation point.
       - *type* - A single byte designating the type of packet: b'A', b'B', etc.
       - *data ...* - Multiple bytes of data, varying by packet type.
-      - *checksum* - A single byte checksum, computed by adding up all the data bytes and
-          inverting the sum.
+      - *checksum* - A single byte checksum, computed by adding up all the data
+        bytes and inverting the sum.
 
     This is an abstract class.
     """
