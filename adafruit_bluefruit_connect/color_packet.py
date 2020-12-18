@@ -75,7 +75,8 @@ class ColorPacket(Packet):
 
     @property
     def color(self):
-        """A tuple(red, green blue)."""
+        """A :class:`tuple` ``(red, green blue)`` representing the color the
+        user chose in the BlueFruit Connect app."""
         return self._color
 
 
