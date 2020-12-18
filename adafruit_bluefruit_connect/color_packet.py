@@ -44,10 +44,10 @@ class ColorPacket(Packet):
     _TYPE_HEADER = b"!C"
 
     def __init__(self, color):
-        """Construct a ColorPacket from a 3-tuple of RGB values,
-        or from an int color value 0xRRGGBB.
+        """Construct a ColorPacket from a 3-element :class:`tuple` of RGB
+        values, or from an int color value 0xRRGGBB.
 
-        :param tuple/int color: an RGB tuple ``(red, green, blue)``
+        :param tuple/int color: an RGB :class:`tuple` ``(red, green, blue)``
           or an int color value ``0xRRGGBB``
         """
         if isinstance(color, int):
