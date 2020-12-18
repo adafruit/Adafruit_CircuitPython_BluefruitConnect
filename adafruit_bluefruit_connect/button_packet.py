@@ -101,7 +101,8 @@ class ButtonPacket(Packet):
 
     @property
     def button(self):
-        """A single character string (not bytes) specifying the button."""
+        """A single character string (not bytes) specifying the button that
+        the user pressed or released."""
         return self._button
 
     @property
