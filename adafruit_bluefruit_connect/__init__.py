@@ -23,23 +23,12 @@
 `adafruit_bluefruit_connect`
 ============================
 
-This module helps you to communicate with the Adafruit Bluefruit Connect app or use its protocols.
+This module helps you to communicate with the `Adafruit Bluefruit Connect App
+<https://learn.adafruit.com/bluefruit-le-connect>`_ or use its protocols with
+boards that run `Adafruit CircuitPython firmware
+<https://circuitpython.org/downloads>`_.
 
 * Author(s): Dan Halbert for Adafruit Industries
-
-Implementation Notes
---------------------
-
-**Hardware:**
-
-   Adafruit Feather nRF52840 Express <https://www.adafruit.com/product/4062>
-
-**Software and Dependencies:**
-
-* Adafruit Bluefruit LE Connect App
-  https://learn.adafruit.com/bluefruit-le-connect-for-ios (also available for Android)
-* Adafruit CircuitPython firmware for the supported boards:
-  https://github.com/adafruit/circuitpython/releases
 
 """
 
