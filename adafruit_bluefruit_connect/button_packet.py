@@ -66,7 +66,8 @@ class ButtonPacket(Packet):
         """Construct a ButtonPacket from a button name and the button's state.
 
         :param str button: a single character denoting the button
-        :param bool pressed: ``True`` if button is pressed; ``False`` if it is release.
+        :param bool pressed: ``True`` if button is pressed; ``False`` if it is
+                             released.
         """
         # This check will catch wrong length and also non-sequence args (like an int).
         try:
@@ -100,12 +101,13 @@ class ButtonPacket(Packet):
 
     @property
     def button(self):
-        """A single character string (not bytes) specifying the button."""
+        """A single character string (not bytes) specifying the button that
+        the user pressed or released."""
         return self._button
 
     @property
     def pressed(self):
-        """True if button is pressed."""
+        """``True`` if button is pressed, or ``False`` if it is released."""
         return self._pressed
 
 

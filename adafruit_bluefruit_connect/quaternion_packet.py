@@ -35,7 +35,8 @@ from ._xyz_packet import _XYZPacket
 
 
 class QuaternionPacket(_XYZPacket):
-    """A packet of x, y, z float values. Used for several different Bluefruit controller packets."""
+    """Device Motion data to describe device attitude. This data is derived
+    from Accelerometer, Gyro, and Magnetometer readings."""
 
     # Use _XYZPacket to handle x, y, z, and add w.
 
