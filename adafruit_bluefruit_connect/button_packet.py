@@ -71,8 +71,8 @@ class ButtonPacket(Packet):
         # This check will catch wrong length and also non-sequence args (like an int).
         try:
             assert len(button) == 1
-        except:
-            raise ValueError("Button must be a single char or byte.")
+        except Exception as err:
+            raise ValueError("Button must be a single char or byte.") from err
 
         self._button = button
         self._pressed = pressed
