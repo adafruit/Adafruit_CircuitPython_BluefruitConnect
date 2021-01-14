@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2021 ladyada for Adafruit Industries
+# SPDX-License-Identifier: MIT
+
 # Basic structure example for using the BLE Connect Controller sensors
 # To use, start this program, and start the Adafruit Bluefruit LE Connect app.
 # Connect, and then select Controller and enable the sensors
