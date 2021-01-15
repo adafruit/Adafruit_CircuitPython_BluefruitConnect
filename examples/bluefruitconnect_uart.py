@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2021 ladyada for Adafruit Industries
+# SPDX-License-Identifier: MIT
+
 # Basic example for using the BLE Connect UART
 # To use, start this program, and start the Adafruit Bluefruit LE Connect app.
 # Connect, and then select UART. Any text received FROM the connected device

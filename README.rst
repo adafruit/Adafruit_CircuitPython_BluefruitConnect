@@ -49,7 +49,7 @@ To install in a virtual environment in your current project:
     python3 -m venv .env
     source .env/bin/activate
     pip3 install adafruit-circuitpython-bluefruitconnect
-    
+
 Usage Example
 =============
 

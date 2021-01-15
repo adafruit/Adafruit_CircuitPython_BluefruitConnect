@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2021 ladyada for Adafruit Industries
+# SPDX-License-Identifier: MIT
+
 # Print out the color data from ColorPackets.
 # To use, start this program, and start the Adafruit Bluefruit LE Connect app.
 # Connect, and then select colors on the Controller->Color Picker screen.
