@@ -103,7 +103,7 @@ class Packet:
                 break
             # Didn't find a packet start. Loop and try again.
 
-        header = start + packet_type
+        header = bytes(start + packet_type)
         packet_class = cls._type_to_class.get(header, None)
         if not packet_class:
             raise ValueError("Unregistered packet type {}".format(header))
