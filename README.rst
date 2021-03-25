@@ -55,7 +55,7 @@ Usage Example
 
 Normally this library is used with the
 `Adafruit_CircuitPython_BluefruitConnect
-<https://github.com/adafruit/Adafruit_CircuitPython_BluefruitConnnect>`_
+<https://github.com/adafruit/Adafruit_CircuitPython_BluefruitConnect>`_
 library
 (``adafruit_bluefruit_connect``). The included examples use that library.
 Below is a simple standalone example.
