@@ -55,8 +55,9 @@ class ButtonPacket(Packet):
         # This check will catch wrong length and also non-sequence args (like an int).
         try:
             assert len(button) == 1
+            assert isinstance(button, str)
         except Exception as err:
-            raise ValueError("Button must be a single char or byte.") from err
+            raise ValueError("Button must be a single char.") from err
 
         self._button = button
         self._pressed = pressed
@@ -77,7 +78,7 @@ class ButtonPacket(Packet):
         partial_packet = struct.pack(
             self._FMT_CONSTRUCT,
             self._TYPE_HEADER,
-            self._button,
+            bytes(self._button, "utf-8"),
             b"1" if self._pressed else b"0",
         )
         return self.add_checksum(partial_packet)
