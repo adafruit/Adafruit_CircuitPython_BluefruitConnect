@@ -71,6 +71,11 @@ Below is a simple standalone example.
     gyro_packet = GyroPacket.from_bytes(packet_buf)
     uart.write(gyro_packet.to_bytes())
 
+Documentation
+=============
+
+API documentation for this library can be found on `Read the Docs <https://circuitpython.readthedocs.io/projects/bluefruitconnect/en/latest/>`_.
+
 Contributing
 ============
 
