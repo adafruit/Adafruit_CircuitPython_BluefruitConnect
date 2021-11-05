@@ -39,7 +39,7 @@ class Packet:
     # The first byte of the prefix is always b'!'. The second byte is the type code.
     _TYPE_HEADER = None
 
-    _type_to_class = dict()
+    _type_to_class = {}
 
     @classmethod
     def register_packet_type(cls):
