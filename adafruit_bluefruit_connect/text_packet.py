@@ -41,5 +41,6 @@ class TextPacket(Packet):
         """Return the text associated with the object."""
         return self._text
 
+
 # Register this class with the superclass. This allows the user to import only what is needed.
 TextPacket.register_packet_type()
