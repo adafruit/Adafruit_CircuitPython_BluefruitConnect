@@ -104,14 +104,14 @@ class Packet:
                 break
 
             # Didn't find a packet start.
-	    text_packet_cls = cls._type_to_class.get(b"TX", None)
-	    # Is TextPacket registered?
-	    # If so, read an entire line and pass that to TextPacket.
-	    if text_packet_cls:
-		packet = bytes(start + stream.readline())
-		return text_packet_cls(packet)
+            text_packet_cls = cls._type_to_class.get(b"TX", None)
+            # Is TextPacket registered?
+            # If so, read an entire line and pass that to TextPacket.
+            if text_packet_cls:
+                packet = bytes(start + stream.readline())
+                return text_packet_cls(packet)
 
-	    # else loop and try again.
+            # else loop and try again.
 
         header = bytes(start + packet_type)
         packet_class = cls._type_to_class.get(header, None)
