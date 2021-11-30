@@ -21,8 +21,6 @@ Consequently, this packet type is MUCH simpler than the other packet types.
 
 """
 
-import struct
-
 from .packet import Packet
 
 
