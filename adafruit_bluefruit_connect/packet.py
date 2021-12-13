@@ -94,6 +94,7 @@ class Packet:
             if not start:
                 # Timeout: nothing read.
                 return None
+
             if start == b"!":
                 # Found start of packet.
                 packet_type = stream.read(1)
@@ -101,7 +102,16 @@ class Packet:
                     # Timeout: nothing more read.
                     return None
                 break
-            # Didn't find a packet start. Loop and try again.
+
+            # Didn't find a packet start.
+            raw_text_packet_cls = cls._type_to_class.get(b"RT", None)
+            # Is RawTextPacket registered?
+            # If so, read an entire line and pass that to RawTextPacket.
+            if raw_text_packet_cls:
+                packet = bytes(start + stream.readline())
+                return raw_text_packet_cls(packet)
+
+            # else loop and try again.
 
         header = bytes(start + packet_type)
         packet_class = cls._type_to_class.get(header, None)
