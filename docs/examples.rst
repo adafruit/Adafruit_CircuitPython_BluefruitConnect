@@ -31,4 +31,3 @@ and raw text (using RawTextPacket).
 .. literalinclude:: ../examples/bluefruitconnect_simpletest.py
     :caption: examples/bluefruitconnect_simpletest.py
     :linenos:
-
