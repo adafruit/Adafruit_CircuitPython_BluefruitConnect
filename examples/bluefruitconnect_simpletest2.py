@@ -33,4 +33,3 @@ while True:
         elif isinstance(packet, TextPacket):
             print("Received Text Packet:")
             print(packet.text)
-
