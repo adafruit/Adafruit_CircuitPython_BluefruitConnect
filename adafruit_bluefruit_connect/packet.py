@@ -81,7 +81,10 @@ class Packet:
         set on stream, using its own preset timeout.
         Return None if there was no input, otherwise return an instance
         of one of the packet classes registered with ``Packet``.
-        Raise an Error if the packet was not recognized or was malformed
+        Raise an Error if the packet was not recognized or was malformed.
+
+        If a packet of type "RT" (like ``RawTextPacket``) is registered, it will be
+        used to return the raw data line when no packet type was recognized.
 
         :param stream stream: an input stream that provides standard stream read operations,
           such as ``ble.UARTServer`` or ``busio.UART``.

@@ -30,3 +30,6 @@
 
 .. automodule:: adafruit_bluefruit_connect.quaternion_packet
    :members:
+
+.. automodule:: adafruit_bluefruit_connect.raw_text_packet
+   :members:
