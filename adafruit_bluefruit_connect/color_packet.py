@@ -34,7 +34,7 @@ class ColorPacket(Packet):
           or an int color value ``0xRRGGBB``
         """
         if isinstance(color, int):
-            self._color = tuple(color.to_bytes("BBB", "big"))
+            self._color = tuple(color.to_bytes(3, "big"))
         elif len(color) == 3 and all(0 <= c <= 255 for c in color):
             self._color = color
         else:
