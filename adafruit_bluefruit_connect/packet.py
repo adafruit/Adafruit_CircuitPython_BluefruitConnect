@@ -12,8 +12,15 @@ Bluefruit Connect App packet superclass
 
 """
 
-import struct
+from __future__ import annotations
 
+import struct
+from io import RawIOBase
+
+try:
+    from typing import Union, Optional, Any # adjust these as needed
+except ImportError:
+    pass
 
 class Packet:
     """
@@ -31,18 +38,18 @@ class Packet:
     # All concrete subclasses should define these class attributes. They're listed here
     # as a reminder and to make pylint happy.
     # _FMT_PARSE is the whole packet.
-    _FMT_PARSE = None
+    _FMT_PARSE: str
     # In each class, set PACKET_LENGTH = struct.calcsize(_FMT_PARSE).
-    PACKET_LENGTH = None
+    PACKET_LENGTH: int
     # _FMT_CONSTRUCT does not include the trailing byte, which is the checksum.
     _FMT_CONSTRUCT = None
     # The first byte of the prefix is always b'!'. The second byte is the type code.
     _TYPE_HEADER = None
 
-    _type_to_class = {}
+    _type_to_class: dict = {}
 
     @classmethod
-    def register_packet_type(cls):
+    def register_packet_type(cls: Any) -> None:
         """Register a new packet type, using this class and its ``cls._TYPE_HEADER``.
         The ``from_bytes()`` and ``from_stream()`` methods will then be able
         to recognize this type of packet.
@@ -51,7 +58,7 @@ class Packet:
         Packet._type_to_class[cls._TYPE_HEADER] = cls
 
     @classmethod
-    def from_bytes(cls, packet):
+    def from_bytes(cls, packet: bytes) -> Packet:
         """Create an appropriate object of the correct class for the given packet bytes.
         Validate packet type, length, and checksum.
         """
@@ -76,7 +83,7 @@ class Packet:
         return packet_class.parse_private(packet)
 
     @classmethod
-    def from_stream(cls, stream):
+    def from_stream(cls, stream: RawIOBase) -> Optional[Packet]:
         """Read the next packet from the incoming stream. Wait as long as the timeout
         set on stream, using its own preset timeout.
         Return None if there was no input, otherwise return an instance
@@ -120,11 +127,13 @@ class Packet:
         packet_class = cls._type_to_class.get(header, None)
         if not packet_class:
             raise ValueError("Unregistered packet type {}".format(header))
-        packet = header + stream.read(packet_class.PACKET_LENGTH - 2)
+        rest = stream.read(packet_class.PACKET_LENGTH - 2)
+        assert rest is not None
+        packet = header + rest
         return cls.from_bytes(packet)
 
     @classmethod
-    def parse_private(cls, packet):
+    def parse_private(cls, packet: bytes) -> Packet:
         """Default implementation for subclasses.
         Assumes arguments to ``__init__()`` are exactly the values parsed using
         ``cls._FMT_PARSE``. Subclasses may need to reimplement if that assumption
@@ -136,11 +145,11 @@ class Packet:
         return cls(*struct.unpack(cls._FMT_PARSE, packet))
 
     @staticmethod
-    def checksum(partial_packet):
+    def checksum(partial_packet: bytes) -> int:
         """Compute checksum for bytes, not including the checksum byte itself."""
         return ~sum(partial_packet) & 0xFF
 
-    def add_checksum(self, partial_packet):
+    def add_checksum(self, partial_packet: bytes) -> bytes:
         """Compute the checksum of partial_packet and return a new bytes
         with the checksum appended.
         """
