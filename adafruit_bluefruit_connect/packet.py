@@ -44,7 +44,7 @@ class Packet:
     # _FMT_CONSTRUCT does not include the trailing byte, which is the checksum.
     _FMT_CONSTRUCT: Optional[str] = None
     # The first byte of the prefix is always b'!'. The second byte is the type code.
-    _TYPE_HEADER: Optional[bytearray] = None
+    _TYPE_HEADER: Optional[bytes] = None
 
     _type_to_class: dict = {}
 
