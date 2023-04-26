@@ -12,6 +12,8 @@ Bluefruit Connect App geographical location packet.
 
 """
 
+from __future__ import annotations
+
 import struct
 
 from .packet import Packet
@@ -20,19 +22,19 @@ from .packet import Packet
 class LocationPacket(Packet):
     """A packet of latitude, longitude, and altitude values."""
 
-    _FMT_PARSE = "<xxfffx"
-    PACKET_LENGTH = struct.calcsize(_FMT_PARSE)
+    _FMT_PARSE: str = "<xxfffx"
+    PACKET_LENGTH: int = struct.calcsize(_FMT_PARSE)
     # _FMT_CONSTRUCT doesn't include the trailing checksum byte.
-    _FMT_CONSTRUCT = "<2sfff"
-    _TYPE_HEADER = b"!L"
+    _FMT_CONSTRUCT: str = "<2sfff"
+    _TYPE_HEADER: bytes = b"!L"
 
-    def __init__(self, latitude, longitude, altitude):
+    def __init__(self, latitude: float, longitude: float, altitude: float) -> None:
         """Construct a LocationPacket from the given values."""
         self._latitude = latitude
         self._longitude = longitude
         self._altitude = altitude
 
-    def to_bytes(self):
+    def to_bytes(self) -> bytes:
         """Return the bytes needed to send this packet."""
         partial_packet = struct.pack(
             self._FMT_CONSTRUCT,
@@ -44,17 +46,17 @@ class LocationPacket(Packet):
         return self.add_checksum(partial_packet)
 
     @property
-    def latitude(self):
+    def latitude(self) -> float:
         """The latitude value."""
         return self._latitude
 
     @property
-    def longitude(self):
+    def longitude(self) -> float:
         """The longitude value."""
         return self._longitude
 
     @property
-    def altitude(self):
+    def altitude(self) -> float:
         """The altitude value."""
         return self._altitude
 
