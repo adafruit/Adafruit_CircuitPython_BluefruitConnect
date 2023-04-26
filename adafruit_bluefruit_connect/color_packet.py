@@ -19,7 +19,7 @@ import struct
 from .packet import Packet
 
 try:
-    from typing import Optional  # adjust these as needed
+    from typing import Optional, Tuple  # adjust these as needed
 except ImportError:
     pass
 
@@ -33,7 +33,7 @@ class ColorPacket(Packet):
     _FMT_CONSTRUCT: str = "<2s3B"
     _TYPE_HEADER: bytes = b"!C"
 
-    def __init__(self, color: Optional[Packet]) -> None:
+    def __init__(self, color: Tuple) -> None:
         """Construct a ColorPacket from a 3-element :class:`tuple` of RGB
         values, or from an int color value 0xRRGGBB.
 
@@ -41,14 +41,14 @@ class ColorPacket(Packet):
           or an int color value ``0xRRGGBB``
         """
         if isinstance(color, int):
-            self._color = tuple(color.to_bytes(3, "big"))
+            self._color: Tuple = tuple(color.to_bytes(3, "big"))
         elif len(color) == 3 and all(0 <= c <= 255 for c in color):
             self._color = color
         else:
             raise ValueError("Color must be an integer 0xRRGGBB or a tuple(r,g,b)")
 
     @classmethod
-    def parse_private(cls, packet: Optional[Packet]) -> Optional[Packet]:
+    def parse_private(cls, packet: bytes) -> Optional[Packet]:
         """Construct a ColorPacket from an incoming packet.
         Do not call this directly; call Packet.from_bytes() instead.
         pylint makes it difficult to call this method _parse(), hence the name.
