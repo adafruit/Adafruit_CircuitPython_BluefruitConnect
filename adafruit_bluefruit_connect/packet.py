@@ -42,9 +42,9 @@ class Packet:
     # In each class, set PACKET_LENGTH = struct.calcsize(_FMT_PARSE).
     PACKET_LENGTH: int
     # _FMT_CONSTRUCT does not include the trailing byte, which is the checksum.
-    _FMT_CONSTRUCT = None
+    _FMT_CONSTRUCT: Optional[str] = None
     # The first byte of the prefix is always b'!'. The second byte is the type code.
-    _TYPE_HEADER = None
+    _TYPE_HEADER: Optional[bytearray] = None
 
     _type_to_class: dict = {}
 
