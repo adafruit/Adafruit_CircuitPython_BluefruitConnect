@@ -16,10 +16,6 @@ from __future__ import annotations
 
 from ._xyz_packet import _XYZPacket
 
-try:
-    from typing import Generator, Union, Dict, Optional, Any # adjust these as needed
-except ImportError:
-    pass
 
 class AccelerometerPacket(_XYZPacket):
     """A packet of x, y, z float values from an accelerometer."""

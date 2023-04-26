@@ -18,7 +18,7 @@ import struct
 from io import RawIOBase
 
 try:
-    from typing import Union, Optional, Any # adjust these as needed
+    from typing import Optional, Any # adjust these as needed
 except ImportError:
     pass
 
@@ -133,7 +133,7 @@ class Packet:
         return cls.from_bytes(packet)
 
     @classmethod
-    def parse_private(cls, packet: bytes) -> Packet:
+    def parse_private(cls, packet: bytes) -> Optional[Packet]:
         """Default implementation for subclasses.
         Assumes arguments to ``__init__()`` are exactly the values parsed using
         ``cls._FMT_PARSE``. Subclasses may need to reimplement if that assumption

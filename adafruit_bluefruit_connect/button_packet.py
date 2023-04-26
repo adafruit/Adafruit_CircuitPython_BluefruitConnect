@@ -13,39 +13,45 @@ Bluefruit Connect App Button data packet (button_name, pressed/released)
 
 """
 
+from __future__ import annotations
+
 import struct
 
 from .packet import Packet
 
+try:
+    from typing import Optional # adjust these as needed
+except ImportError:
+    pass
 
 class ButtonPacket(Packet):
     """A packet containing a button name and its state."""
 
-    BUTTON_1 = "1"
+    BUTTON_1: str = "1"
     """Code for Button 1 on the Bluefruit LE Connect app Control Pad screen."""
-    BUTTON_2 = "2"
+    BUTTON_2: str = "2"
     """Button 2."""
-    BUTTON_3 = "3"
+    BUTTON_3: str = "3"
     """Button 3."""
-    BUTTON_4 = "4"
+    BUTTON_4: str = "4"
     """Button 4."""
     # pylint: disable= invalid-name
-    UP = "5"
+    UP: str = "5"
     """Up Button."""
-    DOWN = "6"
+    DOWN: str = "6"
     """Down Button."""
-    LEFT = "7"
+    LEFT: str = "7"
     """Left Button."""
-    RIGHT = "8"
+    RIGHT: str = "8"
     """Right Button."""
 
-    _FMT_PARSE = "<xxssx"
-    PACKET_LENGTH = struct.calcsize(_FMT_PARSE)
+    _FMT_PARSE: str = "<xxssx"
+    PACKET_LENGTH: int = struct.calcsize(_FMT_PARSE)
     # _FMT_CONSTRUCT doesn't include the trailing checksum byte.
-    _FMT_CONSTRUCT = "<2sss"
-    _TYPE_HEADER = b"!B"
+    _FMT_CONSTRUCT: str = "<2sss"
+    _TYPE_HEADER: bytes = b"!B"
 
-    def __init__(self, button, pressed):
+    def __init__(self, button: str, pressed: bool) -> None:
         """Construct a ButtonPacket from a button name and the button's state.
 
         :param str button: a single character denoting the button
@@ -59,11 +65,11 @@ class ButtonPacket(Packet):
         except Exception as err:
             raise ValueError("Button must be a single char.") from err
 
-        self._button = button
-        self._pressed = pressed
+        self._button: str = button
+        self._pressed: bool = pressed
 
     @classmethod
-    def parse_private(cls, packet):
+    def parse_private(cls, packet: bytes) -> Optional[Packet]:
         """Construct a ButtonPacket from an incoming packet.
         Do not call this directly; call Packet.from_bytes() instead.
         pylint makes it difficult to call this method _parse(), hence the name.
@@ -73,9 +79,9 @@ class ButtonPacket(Packet):
             raise ValueError("Bad button press/release value")
         return cls(chr(button[0]), pressed == b"1")
 
-    def to_bytes(self):
+    def to_bytes(self) -> bytes:
         """Return the bytes needed to send this packet."""
-        partial_packet = struct.pack(
+        partial_packet: bytes = struct.pack(
             self._FMT_CONSTRUCT,
             self._TYPE_HEADER,
             bytes(self._button, "utf-8"),
@@ -84,13 +90,13 @@ class ButtonPacket(Packet):
         return self.add_checksum(partial_packet)
 
     @property
-    def button(self):
+    def button(self) -> str:
         """A single character string (not bytes) specifying the button that
         the user pressed or released."""
         return self._button
 
     @property
-    def pressed(self):
+    def pressed(self) -> bool:
         """``True`` if button is pressed, or ``False`` if it is released."""
         return self._pressed
 
