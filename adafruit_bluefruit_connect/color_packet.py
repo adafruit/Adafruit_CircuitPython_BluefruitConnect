@@ -19,9 +19,10 @@ import struct
 from .packet import Packet
 
 try:
-    from typing import Optional # adjust these as needed
+    from typing import Optional  # adjust these as needed
 except ImportError:
     pass
+
 
 class ColorPacket(Packet):
     """A packet containing an RGB color value."""

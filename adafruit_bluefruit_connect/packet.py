@@ -18,9 +18,10 @@ import struct
 from io import RawIOBase
 
 try:
-    from typing import Optional, Any # adjust these as needed
+    from typing import Optional, Any  # adjust these as needed
 except ImportError:
     pass
+
 
 class Packet:
     """

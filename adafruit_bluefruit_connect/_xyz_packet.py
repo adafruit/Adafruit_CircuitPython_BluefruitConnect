@@ -17,7 +17,7 @@ from __future__ import annotations
 import struct
 
 try:
-    from typing import Generator, Union, Dict, Optional, Any # adjust these as needed
+    from typing import Generator, Union, Dict, Optional, Any  # adjust these as needed
 except ImportError:
     pass
 

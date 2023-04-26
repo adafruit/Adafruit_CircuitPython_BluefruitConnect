@@ -20,9 +20,10 @@ import struct
 from .packet import Packet
 
 try:
-    from typing import Optional # adjust these as needed
+    from typing import Optional  # adjust these as needed
 except ImportError:
     pass
+
 
 class ButtonPacket(Packet):
     """A packet containing a button name and its state."""
