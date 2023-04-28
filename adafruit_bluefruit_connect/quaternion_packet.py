@@ -42,7 +42,6 @@ class QuaternionPacket(_XYZPacket):
             self._FMT_CONSTRUCT, self._TYPE_HEADER, self._x, self._y, self._z, self._w
         )
         return partial_packet + bytes((self.checksum(partial_packet),))
-    
 
     @property
     def w(self) -> float:
