@@ -12,6 +12,8 @@ Bluefruit Connect App Magnetometer data packet.
 
 """
 
+from __future__ import annotations
+
 from ._xyz_packet import _XYZPacket
 
 
@@ -19,7 +21,7 @@ class MagnetometerPacket(_XYZPacket):
     """A packet of x, y, z float values from a magnetometer."""
 
     # Everything else is handled by _XYZPacket.
-    _TYPE_HEADER = b"!M"
+    _TYPE_HEADER: bytes = b"!M"
 
 
 # Register this class with the superclass. This allows the user to import only what is needed.

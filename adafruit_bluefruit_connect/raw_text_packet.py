@@ -22,23 +22,25 @@ Consequently, this packet type is MUCH simpler than the other packet types.
 
 """
 
+from __future__ import annotations
+
 from .packet import Packet
 
 
 class RawTextPacket(Packet):
     """A packet containing a text string."""
 
-    _TYPE_HEADER = b"RT"
+    _TYPE_HEADER: bytes = b"RT"
 
-    def __init__(self, text):
+    def __init__(self, text: str) -> None:
         """Construct a RawTextPacket from a binary string."""
         if isinstance(text, bytes):
-            self._text = text.strip()
+            self._text: str = text.strip()
         else:
             raise ValueError("Text must be a bytes string")
 
     @property
-    def text(self):
+    def text(self) -> str:
         """Return the text associated with the object."""
         return self._text
 

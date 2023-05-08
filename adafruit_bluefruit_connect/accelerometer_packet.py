@@ -12,6 +12,8 @@ Bluefruit Connect App Accelerometer data packet.
 
 """
 
+from __future__ import annotations
+
 from ._xyz_packet import _XYZPacket
 
 
@@ -19,7 +21,7 @@ class AccelerometerPacket(_XYZPacket):
     """A packet of x, y, z float values from an accelerometer."""
 
     # Everything else is handled by _XYZPacket.
-    _TYPE_HEADER = b"!A"
+    _TYPE_HEADER: bytes = b"!A"
 
 
 # Register this class with the superclass. This allows the user to import only what is needed.
