@@ -15,10 +15,11 @@ Bluefruit Connect App packet superclass
 from __future__ import annotations
 
 import struct
-from io import RawIOBase
+
 
 try:
     from typing import Optional, Any  # adjust these as needed
+    from io import RawIOBase
 except ImportError:
     pass
 
