@@ -30,7 +30,6 @@ while True:
 
     # Loop and read packets
     while ble.connected:
-
         # Keeping trying until a good packet is received
         try:
             packet = Packet.from_stream(uart_server)
