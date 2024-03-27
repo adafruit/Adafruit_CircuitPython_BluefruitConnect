@@ -28,6 +28,6 @@ This example demonstrates receiving text from the UART interface.
 This example demonstrates receiving both a color (as in simpletest above)
 and raw text (using RawTextPacket).
 
-.. literalinclude:: ../examples/bluefruitconnect_simpletest.py
-    :caption: examples/bluefruitconnect_simpletest.py
+.. literalinclude:: ../examples/bluefruitconnect_simpletest2.py
+    :caption: examples/bluefruitconnect_simpletest2.py
     :linenos:
