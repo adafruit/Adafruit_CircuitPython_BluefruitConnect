@@ -57,9 +57,7 @@ class ColorPacket(Packet):
 
     def to_bytes(self) -> bytes:
         """Return the bytes needed to send this packet."""
-        partial_packet = struct.pack(
-            self._FMT_CONSTRUCT, self._TYPE_HEADER, *self._color
-        )
+        partial_packet = struct.pack(self._FMT_CONSTRUCT, self._TYPE_HEADER, *self._color)
         return self.add_checksum(partial_packet)
 
     @property

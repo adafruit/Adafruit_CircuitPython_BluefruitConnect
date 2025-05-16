@@ -36,7 +36,6 @@ class ButtonPacket(Packet):
     """Button 3."""
     BUTTON_4: str = "4"
     """Button 4."""
-    # pylint: disable= invalid-name
     UP: str = "5"
     """Up Button."""
     DOWN: str = "6"

@@ -8,13 +8,13 @@
 from adafruit_ble import BLERadio
 from adafruit_ble.advertising.standard import ProvideServicesAdvertisement
 from adafruit_ble.services.nordic import UARTService
-from adafruit_bluefruit_connect.packet import Packet
 
 # Only the packet classes that are imported will be known to Packet.
 from adafruit_bluefruit_connect.accelerometer_packet import AccelerometerPacket
 from adafruit_bluefruit_connect.gyro_packet import GyroPacket
 from adafruit_bluefruit_connect.location_packet import LocationPacket
 from adafruit_bluefruit_connect.magnetometer_packet import MagnetometerPacket
+from adafruit_bluefruit_connect.packet import Packet
 from adafruit_bluefruit_connect.quaternion_packet import QuaternionPacket
 
 ble = BLERadio()
