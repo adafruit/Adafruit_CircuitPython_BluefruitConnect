@@ -16,10 +16,9 @@ from __future__ import annotations
 
 import struct
 
-
 try:
-    from typing import Optional, Any  # adjust these as needed
     from io import RawIOBase
+    from typing import Any, Optional  # adjust these as needed
 except ImportError:
     pass
 
@@ -68,12 +67,12 @@ class Packet:
             raise ValueError("Packet too short")
         packet_class = cls._type_to_class.get(packet[0:2], None)
         if not packet_class:
-            raise ValueError("Unregistered packet type {}".format(packet[0:2]))
+            raise ValueError(f"Unregistered packet type {packet[0:2]}")
 
         # In case this was called from a subclass, make sure the parsed
         # type matches up with the current class.
         if not issubclass(packet_class, cls):
-            raise ValueError("Packet type is not a {}".format(cls.__name__))
+            raise ValueError(f"Packet type is not a {cls.__name__}")
 
         if len(packet) != packet_class.PACKET_LENGTH:
             raise ValueError("Wrong length packet")
@@ -128,7 +127,7 @@ class Packet:
         header = bytes(start + packet_type)
         packet_class = cls._type_to_class.get(header, None)
         if not packet_class:
-            raise ValueError("Unregistered packet type {}".format(header))
+            raise ValueError(f"Unregistered packet type {header}")
         rest = stream.read(packet_class.PACKET_LENGTH - 2)
         assert rest is not None
         packet = header + rest

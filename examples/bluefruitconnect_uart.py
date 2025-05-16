@@ -7,6 +7,7 @@
 # will be displayed. Periodically, text is sent TO the connected device.
 
 import time
+
 from adafruit_ble import BLERadio
 from adafruit_ble.advertising.standard import ProvideServicesAdvertisement
 from adafruit_ble.services.nordic import UARTService
@@ -40,7 +41,7 @@ while True:
             print("RX:", text)
         # OUTGOING (TX) periodically send text
         if time.monotonic() - last_send > SEND_RATE:
-            text = "COUNT = {}\r\n".format(count)
+            text = f"COUNT = {count}\r\n"
             print("TX:", text.strip())
             uart_server.write(text.encode())
             count += 1
