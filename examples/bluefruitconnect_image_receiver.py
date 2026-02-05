@@ -18,7 +18,8 @@ from adafruit_ble import BLERadio
 from adafruit_ble.advertising.standard import ProvideServicesAdvertisement
 from adafruit_ble.services.nordic import UARTService
 from adafruit_gizmo import tft_gizmo
-from ble_image_parser import BLEImageParser
+
+from adafruit_bluefruit_connect.image_parser import BLEImageParser
 
 # Create the TFT Gizmo display
 display = tft_gizmo.TFT_Gizmo()
@@ -27,7 +28,7 @@ display = tft_gizmo.TFT_Gizmo()
 # Here we show how to draw random pixels
 
 # Create a bitmap with two colors
-bitmap = displayio.Bitmap(display.width // 2, display.height // 2, 65535)
+bitmap = displayio.Bitmap(128, 128, 65535)
 
 converter_565 = displayio.ColorConverter(input_colorspace=displayio.Colorspace.RGB565)
 
@@ -35,7 +36,7 @@ converter_565 = displayio.ColorConverter(input_colorspace=displayio.Colorspace.R
 tile_grid = displayio.TileGrid(bitmap, pixel_shader=converter_565)
 
 # Create a Group
-group = displayio.Group()
+group = displayio.Group(scale=2)
 
 # Add the TileGrid to the Group
 group.append(tile_grid)
@@ -50,6 +51,8 @@ parser = BLEImageParser(bitmap)
 ble = BLERadio()
 uart_server = UARTService()
 advertisement = ProvideServicesAdvertisement(uart_server)
+
+display.auto_refresh = False
 
 count = 0
 while True:
@@ -69,7 +72,9 @@ while True:
         # incoming data chunk
         if uart_server.in_waiting:
             raw_bytes = uart_server.read(uart_server.in_waiting)
-            parser.add_chunk(raw_bytes)
+            full_img_received = parser.add_chunk(raw_bytes)
+            if full_img_received:
+                display.refresh()
 
     # Disconnected
     print("DISCONNECTED")
