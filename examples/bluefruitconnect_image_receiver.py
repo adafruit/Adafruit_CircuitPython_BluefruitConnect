@@ -24,15 +24,13 @@ from adafruit_bluefruit_connect.image_parser import BLEImageParser
 # Create the TFT Gizmo display
 display = tft_gizmo.TFT_Gizmo()
 
-# You can now use the display to do whatever you want
-# Here we show how to draw random pixels
-
-# Create a bitmap with two colors
+# Create a bitmap with max color count
 bitmap = displayio.Bitmap(128, 128, 65535)
 
+# Color converter for RGB565 color coming from BLE and going into displayio
 converter_565 = displayio.ColorConverter(input_colorspace=displayio.Colorspace.RGB565)
 
-# Create a TileGrid using the Bitmap and Palette
+# Create a TileGrid using the Bitmap and ColorConverter
 tile_grid = displayio.TileGrid(bitmap, pixel_shader=converter_565)
 
 # Create a Group
